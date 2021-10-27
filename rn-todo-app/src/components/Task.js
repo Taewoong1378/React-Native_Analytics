@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import IconButton from './IconButton';
 import { icons } from '../icons';
+import Input from './Input';
 
 const Container = styled.View`
   flex-direction: row;
@@ -16,16 +17,50 @@ const Container = styled.View`
 const Contents = styled.Text`
   flex: 1;
   font-size: 24px;
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme, completed }) => completed ? theme.done : theme.text};
+  text-decoration-line: ${({ completed }) => 
+    completed ? 'line-through' : 'none'};
 `;
 
-const Task = ({ item, deleteTask }) => {
-  return (
+const Task = ({ item, deleteTask, toggleTask, updateTask }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState(item.text);
+  const onChangeText = (text) => {
+    setText(text);
+  }
+  const _onSubmit = () => {
+    if (isEditing) {
+      const updatedItem = Object.assign({}, item);
+      updatedItem['text'] = text;
+      setIsEditing(false);
+      updateTask(updatedItem);
+    }
+  }
+
+  const _onPress = () => {
+    setIsEditing(true);
+  }
+
+  return isEditing ? (
+    <Input 
+      value={text} 
+      onChangeText={onChangeText} 
+      onSubmitEditing={_onSubmit} 
+      onBlur={() => {
+        setText(item.text);
+        setIsEditing(false);
+      }}
+    />
+  ) : (
     <Container>
-      <IconButton icon={icons.uncheck} />
-      <Contents>{item.text}</Contents>
-      <IconButton icon={icons.edit} />
-      <IconButton icon={icons.delete} id={item.id} onPress={deleteTask} />
+      <IconButton 
+        icon={item.completed ? icons.check : icons.uncheck} 
+        item={item}
+        onPress={toggleTask} 
+      />
+      <Contents completed={item.completed}>{item.text}</Contents>
+      {item.completed || <IconButton icon={icons.edit} onPress={_onPress} />}
+      <IconButton icon={icons.delete} item={item} onPress={deleteTask} />
     </Container>
   );
 };
@@ -33,6 +68,8 @@ const Task = ({ item, deleteTask }) => {
 Task.propTypes = {
   item: PropTypes.object.isRequired,
   deleteTask: PropTypes.func.isRequired,
+  toggleTask: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
 };
 
 export default Task;

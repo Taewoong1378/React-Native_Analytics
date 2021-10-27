@@ -39,8 +39,6 @@ export default function App() {
 
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState(tempData);
-  const [text, setText] = useState('');
-  const [completed, setCompleted] = useState(false);
 
   const onChangeInput = (e) => {
     setNewTask(e);
@@ -65,6 +63,18 @@ export default function App() {
     setTasks(currentTasks);
   };
 
+  const toggleTask = (id) => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[id]['completed'] = !currentTasks[id]['completed'];
+    setTasks(currentTasks);
+  }
+
+  const updateTask = (item) => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[item.id] = item;
+    setTasks(currentTasks); 
+  };
+
   return (
     <ThemeProvider theme={theme}>
     <Container>
@@ -75,6 +85,7 @@ export default function App() {
         value={newTask} 
         onChangeText={onChangeInput} 
         onSubmitEditing={addTask}
+        onBlur={() => setNewTask('')}
       />
       <List width={width}>
         {Object.values(tasks)
@@ -84,6 +95,8 @@ export default function App() {
             key={item.id}
             item={item} 
             deleteTask={deleteTask} 
+            toggleTask={toggleTask}
+            updateTask={updateTask}
           />
           ))}
       </List>
