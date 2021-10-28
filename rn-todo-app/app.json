@@ -28,7 +28,18 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyBdppXiceKrlAMsIkKbxUtlECEkT5LyGMc",
+          "authDomain": "analytics-test-cd143.firebaseapp.com",
+          "projectId": "analytics-test-cd143",
+          "storageBucket": "analytics-test-cd143.appspot.com",
+          "messagingSenderId": "136293754620",
+          "appId": "1:136293754620:web:d2042535cf267c99a25979",
+          "measurementId": "G-5MKF7T7X50"
+          }
+      }
     }
   }
 }
