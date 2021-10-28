@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import * as Analytics from 'expo-firebase-analytics';
 import config from '../firebase.json';
 import 'firebase/firestore';
 
@@ -84,4 +85,32 @@ export const createMessage = async ({ channelId, message }) => {
       ...message,
       createdAt: Date.now(),
     });
+};
+
+/*
+ * Say we are in a tinder clone, and a user presses the card to view more
+ * information on a user. We should track this event so we can see if people
+ * are even using it.
+ *
+ * If lots of users are opening the card then swiping through photos, just
+ * to dismiss again, then we should consider making it possible to look
+ * through photos without having to enter the profile.
+ */
+onPressProfileButton = uid => {
+  Analytics.logEvent('ExpandProfile', {
+    /*
+     * We want to know if the user came from from the swipe card as
+     * opposed to from chat or a deep link.
+     */
+    sender: 'card',
+    /*
+     * This may be too specific and not very useful, but maybe down the line * we could investigate why a certain user is more popular than others.
+     */
+    user: uid,
+    /*
+     * We can use this information later to compare against other events.
+     */
+    screen: 'profile',
+    purpose: 'Viewing more info on a user',
+  });
 };
