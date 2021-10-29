@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136293754620",
+    "project_id": "analytics-test-cd143",
+    "storage_bucket": "analytics-test-cd143.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136293754620:android:6aed517651e2db89a25979",
+        "android_client_info": {
+          "package_name": "com.inflearn.taewoong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136293754620-57hd8j5h4d2mv8dae2irgp559nbp48mo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBefy9IKH3lEyHxznTn2r-_rqb6XMyz4qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136293754620-57hd8j5h4d2mv8dae2irgp559nbp48mo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
